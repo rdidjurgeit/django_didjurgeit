@@ -1,13 +1,18 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
+from django.views import View
 
 from .models import Task
 from .forms import TaskForm
 
+# Other views
+
 class TaskList(generic.ListView):
     model = Task
     template_name = 'todo/task_list.html'  # Specify your template name if needed
-    
+
+#Task Create Stage    
+
 def task_create(request):
     if request.method == 'POST':  # Check if the form has been submitted
         form = TaskForm(request.POST)  # Bind the form to the submitted data
@@ -21,3 +26,29 @@ def task_create(request):
         "form": form,
     }
     return render(request, "todo/task_create.html", context)
+
+#Task Edit
+
+def task_edit(request, pk):
+    task = get_object_or_404(Task, pk=pk)  # Get the task or return a 404 if not found
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)  # Bind the form to the existing task
+        if form.is_valid():
+            form.save()  # Save changes to the task
+            return redirect('task-list')  # Redirect to task list
+    else:
+        form = TaskForm(instance=task)  # Populate the form with existing task data
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'todo/task_edit.html', context)
+
+#Task Delete
+
+def task_delete(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    if request.method == 'POST':
+        task.delete()  # Delete the task
+        return redirect('task-list')  # Redirect to task list
+    return render(request, 'todo/task_confirm_delete.html', {'task': task})

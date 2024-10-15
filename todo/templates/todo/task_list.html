@@ -16,6 +16,8 @@
     {% for task in object_list %}
     <h4>{{task.title}}</h4>
     <p>{{task.content}}</p>
+    <a href="{% url 'task-edit' task.pk %}">Edit</a>  <!-- Edit link -->
+    <a href="{% url 'task-delete' task.pk %}">Delete</a>  <!-- Delete link -->
     {% endfor %}
 </body>
 
