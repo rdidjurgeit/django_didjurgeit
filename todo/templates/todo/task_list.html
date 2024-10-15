@@ -16,8 +16,12 @@
     {% for task in object_list %}
     <h4>{{task.title}}</h4>
     <p>{{task.content}}</p>
+    <p>Status: {{ task.get_status_display }}</p>  
     <a href="{% url 'task-edit' task.pk %}">Edit</a>  <!-- Edit link -->
     <a href="{% url 'task-delete' task.pk %}">Delete</a>  <!-- Delete link -->
+    <a href="{% url 'task-toggle-status' task.pk %}">
+        <button>Toggle Status</button>
+    </a>
     {% endfor %}
 </body>
 

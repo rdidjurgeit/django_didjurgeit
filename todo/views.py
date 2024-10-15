@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.views import View
-
 from .models import Task
 from .forms import TaskForm
 
@@ -52,3 +51,19 @@ def task_delete(request, pk):
         task.delete()  # Delete the task
         return redirect('task-list')  # Redirect to task list
     return render(request, 'todo/task_confirm_delete.html', {'task': task})
+
+# Task Toggle Status
+
+def task_toggle_status(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    
+    # Toggle between the statuses
+    if task.status == 'not_started':
+        task.status = 'in_progress'
+    elif task.status == 'in_progress':
+        task.status = 'completed'
+    else:
+        task.status = 'not_started'
+
+    task.save()  # Save the new status
+    return redirect('task-list')
