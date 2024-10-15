@@ -18,10 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
 
-from todo import views as todo_views
-
 urlpatterns = [
     path('', RedirectView.as_view(url='/todo/', permanent=True)),  # Redirect root URL to /todo
-    path('todo/', todo_views.index, name='todo'),
+    path('todo/', include('todo.urls'), name='todo-urls'),
     path('admin/', admin.site.urls),
 ]
