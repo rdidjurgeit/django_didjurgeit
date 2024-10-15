@@ -16,9 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from hello_world import views as index_views
+from django.views.generic import RedirectView
+
+from todo import views as todo_views
 
 urlpatterns = [
-    path('', index_views.index, name='index'),
+    path('', RedirectView.as_view(url='/todo/', permanent=True)),  # Redirect root URL to /todo
+    path('todo/', todo_views.index, name='todo'),
     path('admin/', admin.site.urls),
 ]
