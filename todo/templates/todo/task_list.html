@@ -9,7 +9,10 @@
 </head>
 
 <body>
-    <h1>Task list</h1>
+    <h1>Task to do list</h1>
+    <a href="{% url 'task-create' %}">
+        <button>Add New Task</button>
+    </a>
     {% for task in object_list %}
     <h4>{{task.title}}</h4>
     <p>{{task.content}}</p>
