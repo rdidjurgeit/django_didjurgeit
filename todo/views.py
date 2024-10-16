@@ -3,7 +3,7 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from .models import Task, PremiumMembership
-from .forms import TaskForm, UserRegisterForm
+from .forms import TaskForm, TaskFormPremium, UserRegisterForm
 from django.contrib import messages
 
 def register(request):
@@ -26,15 +26,15 @@ class TaskList(generic.ListView):
     template_name = 'todo/task_list.html'  # Specify your template name if needed
     
     def get_queryset(self):
-        return Task.objects.filter(user=self.request.user)  # Show only the tasks created by the logged-in user
+        return Task.objects.filter(user=self.request.user).order_by('due_date')  # Show only the tasks created by the logged-in user by Date
 
 #Task Create Stage
     
 @login_required
 def task_create(request):
-    request.user.membership 
+    Form = get_task_form_class(request.user)
     if request.method == 'POST':  # Check if the form has been submitted
-        form = TaskForm(request.POST)  # Bind the form to the submitted data
+        form = Form(request.POST)  # Bind the form to the submitted data
         if form.is_valid():  # Validate the form
             task = form.save(commit=False)  # Create a task object but don't save it yet
             task.user = request.user  # Assign the task to the logged-in user
@@ -42,7 +42,7 @@ def task_create(request):
             messages.success(request, 'Task was successfully created!')  # Add success message
             return redirect('task-list')  # Redirect to the task list after saving
     else:
-        form = TaskForm()  # Create a new blank form for GET requests
+        form = Form()  # Create a new blank form for GET requests
 
     context = {
         "form": form,
@@ -53,15 +53,16 @@ def task_create(request):
 
 @login_required
 def task_edit(request, pk):
+    Form = get_task_form_class(request.user)
     task = get_object_or_404(Task, pk=pk)  # Get the task or return a 404 if not found
     if request.method == 'POST':
-        form = TaskForm(request.POST, instance=task)  # Bind the form to the existing task
+        form = Form(request.POST, instance=task)  # Bind the form to the existing task
         if form.is_valid():
             form.save()  # Save changes to the task
             messages.success(request, 'Task was successfully edit!')  # Add success message
             return redirect('task-list')  # Redirect to task list
     else:
-        form = TaskForm(instance=task)  # Populate the form with existing task data
+        form = Form(instance=task)  # Populate the form with existing task data
 
     context = {
         'form': form,
@@ -97,6 +98,10 @@ def task_toggle_status(request, pk):
     task.save()  # Save the new status
     return redirect('task-list')
 
+def get_task_form_class(user):
+    is_premium = user.membership and user.membership.is_active
+    return TaskFormPremium if is_premium  else TaskForm
+
 # Premium Membership View
 @login_required
 def premium_membership(request):
@@ -117,13 +122,3 @@ def premium_membership(request):
             return redirect('premium-membership')
 
     return render(request, 'todo/membership.html', {'membership': membership})
-
-
-@method_decorator(login_required, name='dispatch')
-class PremiumMembershipListView(generic.ListView):
-    model = PremiumMembership
-    template_name = 'todo/membership.html'
-
-    def get_queryset(self):
-        return PremiumMembership.objects.filter(user=self.request.user)
-

@@ -49,9 +49,16 @@
         <button>Add New Task</button>
     </a>
     {% for task in object_list %}
-    <h4>{{task.title}}</h4>
-    <p>{{task.content}}</p>
-    <p>Status: {{ task.get_status_display }}</p>  
+        <h4>{{task.title}}</h4>
+        <p>{{task.content}}</p>
+        <p>Status: {{ task.get_status_display }}</p>
+        {% if user.membership and user.membership.is_active %}
+            {% if task.due_date %}
+                <p>Due Date: {{ task.due_date }}</p>
+            {% else %}
+                <p>No Due Date</p>
+            {% endif %}
+        {% endif %} 
     <a href="{% url 'task-edit' task.pk %}">Edit</a>  <!-- Edit link -->
     <a href="{% url 'task-delete' task.pk %}">Delete</a>  <!-- Delete link -->
     <a href="{% url 'task-toggle-status' task.pk %}">

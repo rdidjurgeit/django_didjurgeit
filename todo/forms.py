@@ -16,3 +16,9 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ('title', 'content', 'status')
+
+class TaskFormPremium(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ('title', 'content', 'status', 'due_date')
+   
