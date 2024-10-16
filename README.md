@@ -4,6 +4,18 @@ This is a todo app
 
 ## Running the project
 
+In case this project is been clone from the repository. First you need to install the requirements.txt, using the following command:
+
+```
+$ pip install -r requirements.txt
+```
+
+Run the migration with the following command:
+
+```
+$ python manage.py migrate
+```
+
 Start the server with the following command:
 
 ```
@@ -21,7 +33,7 @@ $ python manage.py makemigrations todo
 Note that this will just generate the migration but it still needs to be applied with the following command:
 
 ```
-$ python manage.py migrate blog
+$ python manage.py migrate todo
 ```
 
 ## Accessing the admin interface

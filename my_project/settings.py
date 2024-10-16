@@ -55,7 +55,7 @@ ROOT_URLCONF = 'my_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,6 +99,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Redirect URLs for login and logout
+LOGIN_REDIRECT_URL = 'task-list'  # After login, redirect to task list page
+LOGOUT_REDIRECT_URL = 'login'  # After logout, redirect to the login page
 
 
 # Internationalization

@@ -17,9 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/todo/', permanent=True)),  # Redirect root URL to /todo
     path('todo/', include('todo.urls'), name='todo-urls'),
     path('admin/', admin.site.urls),
+    
+    # Add login and logout URLs using Django's built-in views
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
