@@ -15,6 +15,7 @@ class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     due_date = models.DateField(null=True, blank=True)  # Add due_date field (optional)
     #other fields 
+    
     def __str__(self):
         return self.title  # This will display the title instead of 'Task object'
     
