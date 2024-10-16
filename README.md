@@ -51,3 +51,27 @@ Run the Python tests with the following command:
 ```
 $ python manage.py test
 ```
+
+## Deploying to production
+
+The application will be deployed to Heroku, where the following needs to be configured:
+
+- Create an app
+- Set `SECRET_KEY` to a random value with 64 characters
+- Set `DATABASE_URL` to the Code Institute PostgreSQL URL 
+- Set `DISABLE_COLLECTSTATIC` to 1 to prevent collecstatic running each time
+- Configure integration with GitHub and enable automatic deployments
+
+Now each time a push to GitHub will trigger deployment. 
+
+On Heroku use the option More > Run console to apply migrations with: 
+
+```
+$ python manage.py migrate
+```
+
+You can also create a super user:
+
+```
+$ python manage.py createsuperuser
+```
