@@ -2,10 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
-from django.views import View
-from .models import Task
-from .forms import TaskForm
-from .forms import UserRegisterForm
+from .models import Task, PremiumMembership
+from .forms import TaskForm, UserRegisterForm
 
 def register(request):
     if request.method == 'POST':
@@ -33,6 +31,7 @@ class TaskList(generic.ListView):
     
 @login_required
 def task_create(request):
+    request.user.membership 
     if request.method == 'POST':  # Check if the form has been submitted
         form = TaskForm(request.POST)  # Bind the form to the submitted data
         if form.is_valid():  # Validate the form
@@ -92,3 +91,34 @@ def task_toggle_status(request, pk):
 
     task.save()  # Save the new status
     return redirect('task-list')
+
+# Premium Membership View
+@login_required
+def premium_membership(request):
+    membership = getattr(request.user, 'membership', None)  # Fetch the user's membership
+
+    if request.method == 'POST':
+        if 'activate' in request.POST:
+            if not membership:
+                membership = PremiumMembership.objects.create(user=request.user)  # Create a new membership
+            membership.is_active = True  # Set the membership to active
+            membership.save()
+            return redirect('task-list')
+
+        elif 'cancel' in request.POST:
+            if membership:
+                membership.is_active = False  # Set the membership to inactive
+                membership.save()
+            return redirect('premium-membership')
+
+    return render(request, 'todo/membership.html', {'membership': membership})
+
+
+@method_decorator(login_required, name='dispatch')
+class PremiumMembershipListView(generic.ListView):
+    model = PremiumMembership
+    template_name = 'todo/membership.html'
+
+    def get_queryset(self):
+        return PremiumMembership.objects.filter(user=self.request.user)
+

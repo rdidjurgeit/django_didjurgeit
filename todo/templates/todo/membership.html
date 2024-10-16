@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Membership</title>
+</head>
+<body>
+    <h1>Premium Membership</h1>
+
+    {% if membership %}
+        {% if membership.is_active %}
+            <p>You have an active membership since {{ membership.created }}.</p>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" name="cancel">Cancel Membership</button>
+            </form>
+        {% else %}
+            <p>Your membership is inactive. Activate it to enjoy premium benefits!</p>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" name="activate">Activate - $10.00</button>
+            </form>
+        {% endif %}
+    {% else %}
+        <p>You do not currently have a membership. Activate now to receive many benefits!</p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" name="activate">Activate - $10.00</button>
+        </form>
+    {% endif %}
+
+    <a href="{% url 'task-list' %}">Back to Task List</a>
+</body>
+</html>

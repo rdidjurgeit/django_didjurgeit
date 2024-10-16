@@ -11,8 +11,24 @@
 <body>
     <nav>
         {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }}!</p>
+            <p>Welcome, {{ user.username }} 
+            {% if user.membership and user.membership.is_active %}
+                ⭐ <!-- Show star if membership is active -->
+                <span>(Premium Member)</span>  <!-- Show premium status -->
+            {% else %}
+                <span>(Not a Premium Member)</span>  <!-- Indicate non-premium status -->
+            {% endif %}
+            </p>
             <a href="{% url 'logout' %}">Logout</a>
+
+            <!-- Show appropriate button based on membership status -->
+            {% if user.membership and user.membership.is_active %}
+                <!-- If the user is a premium member, show the cancel option -->
+                <a href="{% url 'premium-membership' %}"><button>Manage Premium Membership</button></a>
+            {% else %}
+                <!-- If the user is not a premium member, show the activate button -->
+                <a href="{% url 'premium-membership' %}"><button>Activate Premium</button></a>
+            {% endif %}
         {% else %}
             <a href="{% url 'login' %}">Login</a>
             <a href="{% url 'register' %}">Register</a>
