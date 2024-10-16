@@ -43,3 +43,11 @@ The admin interface is accessible at `/admin`. To log in, first create a superus
 ```
 $ python manage.py createsuperuser
 ```
+
+## Running the test
+
+Run the Python tests with the following command:
+
+```
+$ python manage.py test
+```
