@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from .models import Task, PremiumMembership
 from .forms import TaskForm, UserRegisterForm
+from django.contrib import messages
 
 def register(request):
     if request.method == 'POST':
@@ -38,6 +39,7 @@ def task_create(request):
             task = form.save(commit=False)  # Create a task object but don't save it yet
             task.user = request.user  # Assign the task to the logged-in user
             task.save()  # Now save the task
+            messages.success(request, 'Task was successfully created!')  # Add success message
             return redirect('task-list')  # Redirect to the task list after saving
     else:
         form = TaskForm()  # Create a new blank form for GET requests
@@ -56,6 +58,7 @@ def task_edit(request, pk):
         form = TaskForm(request.POST, instance=task)  # Bind the form to the existing task
         if form.is_valid():
             form.save()  # Save changes to the task
+            messages.success(request, 'Task was successfully edit!')  # Add success message
             return redirect('task-list')  # Redirect to task list
     else:
         form = TaskForm(instance=task)  # Populate the form with existing task data
@@ -72,7 +75,9 @@ def task_delete(request, pk):
     task = get_object_or_404(Task, pk=pk)
     if request.method == 'POST':
         task.delete()  # Delete the task
+        messages.success(request, 'Task was successfully deleted!')  # Add success message
         return redirect('task-list')  # Redirect to task list
+    
     return render(request, 'todo/task_confirm_delete.html', {'task': task})
 
 # Task Toggle Status
