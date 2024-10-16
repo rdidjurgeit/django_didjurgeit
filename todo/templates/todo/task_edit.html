@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Task</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block head_title %}Edit Task{% endblock %}
+
+{% block content %}
+<div class="container">
     <h1>Edit Task</h1>
     <form method="post">
         {% csrf_token %}
@@ -13,5 +11,5 @@
         <button type="submit">Save Changes</button>
     </form>
     <a href="{% url 'task-list' %}">Cancel</a>
-</body>
-</html>
+</div>
+{% endblock %}

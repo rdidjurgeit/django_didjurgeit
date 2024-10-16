@@ -1,49 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tasks</title>
-</head>
+{% block head_title %}Tasks{% endblock %}
 
-<body>
-    <nav>
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }} 
-            {% if user.membership and user.membership.is_active %}
-                ⭐ <!-- Show star if membership is active -->
-                <span>(Premium Member)</span>  <!-- Show premium status -->
-            {% else %}
-                <span>(Not a Premium Member)</span>  <!-- Indicate non-premium status -->
-            {% endif %}
-            </p>
-            <a href="{% url 'logout' %}">Logout</a>
-
-            <!-- Show appropriate button based on membership status -->
-            {% if user.membership and user.membership.is_active %}
-                <!-- If the user is a premium member, show the cancel option -->
-                <a href="{% url 'premium-membership' %}"><button>Manage Premium Membership</button></a>
-            {% else %}
-                <!-- If the user is not a premium member, show the activate button -->
-                <a href="{% url 'premium-membership' %}"><button>Activate Premium</button></a>
-            {% endif %}
-        {% else %}
-            <a href="{% url 'login' %}">Login</a>
-            <a href="{% url 'register' %}">Register</a>
-        {% endif %}
-    </nav>
-
-    <!-- Display messages if any -->
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    
+{% block content %}
+<div class="container">
     <h1>Task to do list</h1>
     <a href="{% url 'task-create' %}">
         <button>Add New Task</button>
@@ -79,6 +39,5 @@
         <button>Toggle Status</button>
     </a>
     {% endfor %}
-</body>
-
-</html>
+</div>
+{% endblock %}

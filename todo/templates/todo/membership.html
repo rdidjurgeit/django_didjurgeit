@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Membership</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block head_title %}Membership{% endblock %}
+
+{% block content %}
+<div class="container">
     <h1>Premium Membership</h1>
 
     {% if membership %}
@@ -31,5 +29,5 @@
     {% endif %}
 
     <a href="{% url 'task-list' %}">Back to Task List</a>
-</body>
-</html>
+</div>
+{% endblock %}

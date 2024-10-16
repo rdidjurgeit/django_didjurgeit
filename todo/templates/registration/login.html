@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block head_title %}Login{% endblock %}
+
+{% block content %}
+<div class="container">
+
     <h2>Login</h2>
     <form method="POST">
         {% csrf_token %}
@@ -11,5 +12,5 @@
         <button type="submit">Login</button>
     </form>
     <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
-</body>
-</html>
+</div>
+{% endblock %}
