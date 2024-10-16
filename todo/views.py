@@ -5,7 +5,20 @@ from django.views import generic
 from django.views import View
 from .models import Task
 from .forms import TaskForm
+from .forms import UserRegisterForm
 
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the new user to the database
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Your account has been created! You are now able to log in.')
+            return redirect('login')  # Redirect to login page after successful registration
+    else:
+        form = UserRegisterForm()
+    
+    return render(request, 'registration/register.html', {'form': form})
 
 # Other views
 @method_decorator(login_required, name='dispatch')
