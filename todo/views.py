@@ -26,8 +26,12 @@ class TaskList(generic.ListView):
     template_name = 'todo/task_list.html'  # Specify your template name if needed
     
     def get_queryset(self):
-        return Task.objects.filter(user=self.request.user).order_by('due_date')  # Show only the tasks created by the logged-in user by Date
-
+        # Show only the tasks created by the logged-in user by Date
+        queryset = Task.objects.filter(user=self.request.user)
+        search = self.request.GET.get('search')
+        if search:
+            queryset = queryset.filter(title__icontains=search)
+        return queryset.order_by('due_date')  
 #Task Create Stage
     
 @login_required

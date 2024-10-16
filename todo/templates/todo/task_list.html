@@ -48,6 +48,20 @@
     <a href="{% url 'task-create' %}">
         <button>Add New Task</button>
     </a>
+
+    <form method="get">
+        <input type="text" name="search" value="{{request.GET.search}}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if request.GET.search %}
+       {% if  object_list|length > 0 %}
+         <p>{{object_list|length}} results for search</p>
+       {% else %}
+          <p>No results for search</p>
+       {% endif %}
+    {% endif %}
+
     {% for task in object_list %}
         <h4>{{task.title}}</h4>
         <p>{{task.content}}</p>
