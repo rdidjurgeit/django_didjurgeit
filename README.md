@@ -125,3 +125,10 @@ You can also create a super user:
 ```
 $ python manage.py createsuperuser
 ```
+
+## Credits and Contact
+
+The base.html 
+
+was take as exemple the one provide in during the Blog run creation and adapt.
+
