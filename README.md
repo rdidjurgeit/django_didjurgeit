@@ -1,10 +1,60 @@
-# To do app
+# To-Do App
 
-This is a todo app
+This is a to-do app built with Django, allowing users to manage their tasks effectively.
 
-## Running the project
+## Table of Contents
 
-In case this project is been clone from the repository. First you need to install the requirements.txt, using the following command:
+1. <details open>
+    <summary><a href="#overview">Overview</a></summary>
+</details>
+
+2. <details open>
+    <summary><a href="#getting-started">Getting Started</a></summary>
+    <ul>
+        <li><details>
+            <summary><a href="#running-the-project">Running the Project</a></summary>
+        </details></li>
+        <li><details>
+            <summary><a href="#generating-and-applying-migrations">Generating and Applying Migrations</a></summary>
+        </details></li>
+    </ul>
+</details>
+
+3. <details open>
+    <summary><a href="#admin-interface">Admin Interface</a></summary>
+</details>
+
+4. <details open>
+    <summary><a href="#testing">Testing</a></summary>
+</details>
+
+5. <details open>
+    <summary><a href="#deployment">Deployment</a></summary>
+</details>
+
+6. <details open>
+    <summary><a href="#features">Features</a></summary>
+</details>
+
+7. <details open>
+    <summary><a href="#technologies-used">Technologies Used</a></summary>
+</details>
+
+8. <details open>
+    <summary><a href="#credit-and-contact">Credit and Contact</a></summary>
+</details>
+
+---
+
+## Overview
+
+This application allows users to create, edit, and delete tasks, with the added feature of user authentication to ensure that each user can only see their own tasks.
+
+## Getting Started
+
+### Running the Project
+
+If this project is cloned from the repository, first install the required packages using the following command:
 
 ```
 $ pip install -r requirements.txt

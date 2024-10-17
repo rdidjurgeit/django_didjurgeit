@@ -2,17 +2,8 @@ body {
     background-color: rgb(243, 243, 243); /* Light grey background */
 }
 
-.navbar {
-    background-color: rgb(27, 64, 121); /* Dark Blue */
-}
-
-.navbar-brand,
-.nav-link {
-    color: white !important; /* White text for navbar items */
-}
-
 .nav-link.active {
-    background-color: rgb(77, 124, 138); /* Active link color */
+    background-color:red; /* Active link color */
     color: white !important; /* Ensure text color is white */
 }
 

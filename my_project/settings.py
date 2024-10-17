@@ -29,6 +29,8 @@ if 'SECRET_KEY' in os.environ:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+if os.path.isfile('env.py'):
+    from env import DEBUG
 
 ALLOWED_HOSTS = ["127.0.0.1", '.herokuapp.com']
 
