@@ -1,0 +1,46 @@
+body {
+    background-color: rgb(243, 243, 243); /* Light grey background */
+}
+
+.navbar {
+    background-color: rgb(27, 64, 121); /* Dark Blue */
+}
+
+.navbar-brand,
+.nav-link {
+    color: white !important; /* White text for navbar items */
+}
+
+.nav-link.active {
+    background-color: rgb(77, 124, 138); /* Active link color */
+    color: white !important; /* Ensure text color is white */
+}
+
+.footer {
+    background-color: rgb(27, 64, 121); /* Dark Blue */
+    color: white;
+}
+
+.alert {
+    background-color: rgb(143, 173, 136); /* Light Green */
+    color: #333; /* Dark text for better readability */
+}
+
+.btn-primary {
+    background-color: rgb(203, 223, 144); /* Light Yellow */
+    border-color: rgb(203, 223, 144); /* Match border color */
+}
+
+.btn-primary:hover {
+    background-color: rgb(127, 156, 150); /* Darker Green on hover */
+    border-color: rgb(127, 156, 150); /* Match border color */
+}
+
+.main-bg {
+    background-color: rgb(243, 243, 243); /* Light grey for main content area */
+}
+
+.brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}

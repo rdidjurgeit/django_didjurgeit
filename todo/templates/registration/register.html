@@ -2,15 +2,17 @@
 
 {% block head_title %}Register{% endblock %}
 
-{% block content %}
-<div class="container">
+{% load crispy_forms_tags %}  <!-- Load Crispy Forms tags -->
 
-    <h2>Register</h2>
-    <form method="POST">
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Create an Account</h1>
+
+    <form method="post" class="mb-4">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
+        {{ form|crispy }}  <!-- Use Crispy to render the form -->
+        <button type="submit" class="btn btn-primary">Register</button>
+        <a href="{% url 'login' %}" class="btn btn-link">Already have an account? Login here</a>
     </form>
-    <a href="{% url 'login' %}">Already have an account? Login</a>
 </div>
 {% endblock %}
