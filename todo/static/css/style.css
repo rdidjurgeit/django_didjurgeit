@@ -3,7 +3,7 @@ body {
 }
 
 .nav-link.active {
-    background-color:red; /* Active link color */
+    background-color:blue; /* Active link color */
     color: white !important; /* Ensure text color is white */
 }
 
