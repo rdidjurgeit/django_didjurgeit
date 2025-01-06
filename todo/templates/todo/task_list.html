@@ -39,10 +39,11 @@
                         <p class="task-content mb-1">{{ task.content }}</p>
                         <p class="mb-1"><strong>Status:</strong>
                             <span class="task-status 
-                                {% if task.status == 'Completed' %}completed{% endif %}
-                                {% if task.status == 'Pending' %}pending{% endif %}
-                                {% if task.status == 'Overdue' %}overdue{% endif %}">
-                                {{ task.get_status_display }}
+                                {% if task.status == 'completed' %}completed{% endif %}
+                                {% if task.status == 'not_started' %}pending{% endif %}
+                                {% if task.status == 'in_progress' %}overdue{% endif %}
+                            ">
+                                {{ task.get_status_display }} <!-- e.g. “Completed”, “Not Started”, “In Progress” -->
                             </span>
                         </p>
                         {% if user.membership and user.membership.is_active %}

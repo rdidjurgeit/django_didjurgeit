@@ -56,7 +56,6 @@ body {
 .task-status {
     padding: 0.2em 0.5em; /* Padding for badge */
     border-radius: 0.2rem; /* Rounded corners */
-    color: white; /* Text color for status */
     font-weight: bold; /* Bold text for status */
 }
 
