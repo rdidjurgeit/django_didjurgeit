@@ -14,7 +14,10 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, 'Your account has been created! You can now log in.')
+            messages.success(
+                request,
+                'Your account has been created! You can now log in.'
+            )
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -113,7 +116,9 @@ def premium_membership(request):
     if request.method == 'POST':
         if 'activate' in request.POST:
             if not membership:
-                membership = PremiumMembership.objects.create(user=request.user)
+                membership = PremiumMembership.objects.create(
+                    user=request.user
+                )
             membership.is_active = True
             membership.save()
             return redirect('task-list')

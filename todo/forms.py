@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 from .models import Task
 
+
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
         'class': 'form-control',
@@ -34,9 +35,12 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ('title', 'content', 'status')
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Task Title'}),
-            'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Task Content'}),
-            'status': forms.Select(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={
+                'class': 'form-control', 'placeholder': 'Task Title'}),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control', 'placeholder': 'Task Content'}),
+            'status': forms.Select(attrs={
+                'class': 'form-control'}),
         }
 
 
@@ -45,8 +49,13 @@ class TaskFormPremium(forms.ModelForm):
         model = Task
         fields = ('title', 'content', 'status', 'due_date')
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Task Title'}),
-            'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Task Content'}),
-            'status': forms.Select(attrs={'class': 'form-control'}),
-            'due_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-        }
+            'title': forms.TextInput(attrs={
+                'class': 'form-control', 'placeholder': 'Task Title'}),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control', 'placeholder': 'Task Content'}),
+            'status': forms.Select(attrs={
+                'class': 'form-control'}),
+            'due_date': forms.DateInput(attrs={
+                'class': 'form-control', 'type': 'date'}),
+            }
+        

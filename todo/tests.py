@@ -5,6 +5,7 @@ from django.test import TestCase
 from .models import Task
 from .forms import TaskForm, UserRegisterForm
 
+
 class TestTaskForm(TestCase):
 
     def test_form_is_valid(self):
@@ -14,7 +15,7 @@ class TestTaskForm(TestCase):
             'status': 'not_started',
         })
         self.assertTrue(task_form.is_valid(), msg="Form is invalid")
-    
+
     def test_form_is_invalid_with_blank_title(self):
         task_form = TaskForm({
             'title': '',
@@ -34,7 +35,7 @@ class TestUserRegisterForm(TestCase):
             'password2': 'askdjk2kjdlksdf1234',
         })
         self.assertTrue(reg_form.is_valid(), msg="Form is invalid")
-        
+
     def test_form_is_invalid_with_common_password(self):
         reg_form = UserRegisterForm({
             'username': 'rapha',
@@ -52,8 +53,8 @@ class TestUserRegisterForm(TestCase):
             'password2': 'askdjk2kjdlksdf12345',
         })
         self.assertFalse(reg_form.is_valid(), msg="Form is valid")
-        
-        
+
+
 class TestTaskViews(TestCase):
 
     def setUp(self):
@@ -62,11 +63,19 @@ class TestTaskViews(TestCase):
             password="myPassword",
             email="test@test.com"
         )
-        self.task1 = Task(title="Task title 1", user=self.user,
-                         content="Task content 1", status='not_started')
+        self.task1 = Task(
+            title="Task title 1",
+            user=self.user,
+            content="Task content 1",
+            status='not_started'
+        )
         self.task1.save()
-        self.task2 = Task(title="Task title 2", user=self.user,
-                         content="Task content 2", status='not_started')
+        self.task2 = Task(
+            title="Task title 2",
+            user=self.user,
+            content="Task content 2",
+            status='not_started'
+        )
         self.task2.save()
 
     def test_render_task_list(self):
@@ -79,9 +88,9 @@ class TestTaskViews(TestCase):
         self.assertIn(b"Task title 2", response.content)
         self.assertIn(b"Task content 2", response.content)
         self.assertEqual(len(response.context['object_list']), 2)
-        
+
     def test_render_task_list_redirects_if_not_logged_in(self):
         response = self.client.get(reverse('task-list'))
-        self.assertEqual(response.status_code, 302)  
-        self.assertIn('Location', response.headers)  # Ensure the Location header exists
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('Location', response.headers)
         self.assertIn('/accounts/login', response.headers['Location'])
