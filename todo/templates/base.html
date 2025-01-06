@@ -94,9 +94,9 @@
                 {% endif %}
             </p>
             {% if user.membership and user.membership.is_active %}
-                <a href="{{ membership_url }}"><button>Manage Premium Membership</button></a>
+                <a href="{% url 'premium-membership' %}" class="btn btn-primary">Manage Premium Membership</a>
             {% else %}
-                <a href="{{ membership_url }}"><button>Activate Premium</button></a>
+                <a href="{% url 'premium-membership' %}" class="btn btn-primary">Activate Premium</a>
             {% endif %}
         {% endif %}
 
