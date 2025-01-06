@@ -1,5 +1,4 @@
 {% load static %}
-
 {% url 'task-list' as tasks_url %}
 {% url 'login' as login_url %}
 {% url 'logout' as logout_url %}
@@ -7,13 +6,12 @@
 {% url 'premium-membership' as membership_url %}
 
 <!DOCTYPE html>
-<html class="h-100" lang="en">
-
+<html lang="en">
 <head>
     <title>Todo App | {% block head_title %}{% endblock head_title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Google Fonts CSS -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
@@ -22,44 +20,45 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
+          rel="stylesheet" integrity="sha384-..." crossorigin="anonymous">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    {% block extra_head %}
-    {% endblock extra_head %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_head %}{% endblock extra_head %}
 </head>
 
 <body class="d-flex flex-column h-100 main-bg">
-
-    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{tasks_url}}">
                 <span class="brand">t<span class="red-o">o</span>do<span class="thin">|app</span></span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarText" aria-controls="navbarText"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == tasks_url %}active{% endif %}" aria-current="page" href="{{tasks_url}}">Tasks</a>
+                        <a class="nav-link {% if request.path == tasks_url %}active{% endif %}"
+                           href="{{tasks_url}}">Tasks</a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" href="{{logout_url}}">Logout</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == logout_url %}active{% endif %}"
+                               href="{{logout_url}}">Logout</a>
+                        </li>
                     {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == register_url %}active{% endif %}" href="{{register_url}}">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" href="{{login_url}}">Login</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == register_url %}active{% endif %}"
+                               href="{{register_url}}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == login_url %}active{% endif %}"
+                               href="{{login_url}}">Login</a>
+                        </li>
                     {% endif %}
                 </ul>
                 <span class="navbar-text text-muted">
@@ -69,53 +68,52 @@
         </div>
     </nav>
 
-     <!-- displaying Django messages -->
+    <!-- Django messages -->
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 {% for message in messages %}
-                <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
-                    {{ message | safe }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message|safe }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
                 {% endfor %}
             </div>
         </div>
     </div>
+
     <main class="flex-shrink-0 main-bg">
         {% if user.is_authenticated %}
-            <p class="text-start m-3">Welcome, {{ user.username }} 
-            {% if user.membership and user.membership.is_active %}
-                ⭐ <!-- Show star if membership is active -->
-                <span>(Premium Member)</span>  <!-- Show premium status -->
-            {% else %}
-                <span>(Not a Premium Member)</span>  <!-- Indicate non-premium status -->
-            {% endif %}
+            <p class="text-start m-3">
+                Welcome, {{ user.username }}
+                {% if user.membership and user.membership.is_active %}
+                    ⭐ (Premium Member)
+                {% else %}
+                    (Not a Premium Member)
+                {% endif %}
             </p>
-
-            <!-- Show appropriate button based on membership status -->
             {% if user.membership and user.membership.is_active %}
-                <!-- If the user is a premium member, show the cancel option -->
-                <a href="{% url 'premium-membership' %}"><button>Manage Premium Membership</button></a>
+                <a href="{{ membership_url }}"><button>Manage Premium Membership</button></a>
             {% else %}
-                <!-- If the user is not a premium member, show the activate button -->
-                <a href="{% url 'premium-membership' %}"><button>Activate Premium</button></a>
+                <a href="{{ membership_url }}"><button>Activate Premium</button></a>
             {% endif %}
         {% endif %}
 
         {% block content %}
-        <!-- Content Goes here -->
         {% endblock content %}
-
     </main>
 
-    <!-- Footer -->
     <footer class="footer mt-auto py-3 dark-bg">
         <p class="m-0 text-center text-white">
-        {% block copyright %}Made by Rapha{% endblock copyright %}
+            {% block copyright %}
+                Made by Rapha
+            {% endblock copyright %}
         </p>
     </footer>
 
+    <!-- Bootstrap Bundle with Popper for navbar toggling -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-..." crossorigin="anonymous"></script>
 </body>
-
 </html>

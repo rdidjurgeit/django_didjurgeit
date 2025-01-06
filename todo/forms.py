@@ -1,9 +1,8 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Task
+from django.contrib.auth.models import User
 
-#Create Registration
+from .models import Task
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
@@ -29,6 +28,7 @@ class UserRegisterForm(UserCreationForm):
             }),
         }
 
+
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
@@ -38,6 +38,7 @@ class TaskForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Task Content'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
         }
+
 
 class TaskFormPremium(forms.ModelForm):
     class Meta:
@@ -49,4 +50,3 @@ class TaskFormPremium(forms.ModelForm):
             'status': forms.Select(attrs={'class': 'form-control'}),
             'due_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
-   
