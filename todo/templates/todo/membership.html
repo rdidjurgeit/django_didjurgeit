@@ -11,13 +11,13 @@
             <p>You have an active membership since {{ membership.created }}.</p>
             <form method="POST">
                 {% csrf_token %}
-                <button type="submit" name="cancel">Cancel Membership</button>
+                <button type="submit" name="cancel" class="btn btn-danger">Cancel Membership</button>
             </form>
         {% else %}
             <p>Your membership is inactive. Activate it to enjoy premium benefits!</p>
             <form method="POST">
                 {% csrf_token %}
-                <button type="submit" name="activate">Activate - $10.00</button>
+                <button type="submit" name="activate" class="btn btn-primary">Activate - $10.00</button>
             </form>
         {% endif %}
     {% else %}
@@ -28,6 +28,6 @@
         </form>
     {% endif %}
 
-    <a href="{% url 'task-list' %}">Back to Task List</a>
+    <a href="{% url 'task-list' %}" class="btn btn-secondary">Back to Task List</a>
 </div>
 {% endblock %}
