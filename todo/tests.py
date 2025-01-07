@@ -82,7 +82,7 @@ class TestTaskViews(TestCase):
         self.client.login(username='myUsername', password='myPassword')
         response = self.client.get(reverse('task-list'))
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"Task to do list", response.content)
+        self.assertIn(b"Task To-Do List", response.content)
         self.assertIn(b"Task title 1", response.content)
         self.assertIn(b"Task content 1", response.content)
         self.assertIn(b"Task title 2", response.content)

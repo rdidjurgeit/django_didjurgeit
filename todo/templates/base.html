@@ -17,14 +17,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap" rel="stylesheet">
 
     <!-- Proper Bootstrap 5.0.1 CSS link with correct SRI -->
-  <link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-  crossorigin="anonymous">
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+    crossorigin="anonymous">
+  
 
-<!-- Your custom CSS -->
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Your Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_head %}{% endblock extra_head %}
 </head>
 
 <body class="d-flex flex-column h-100 main-bg">
@@ -112,10 +114,9 @@
     </footer>
 
     <!-- Bootstrap Bundle with Popper for navbar toggling -->
-    <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-gtEjrD/SeCtm2cCfmQ2mPMqHf6jNyOc2xev1FT0nt5M0Chvof0qYlg3PZ3tp/hDu"
-    crossorigin="anonymous">
-  </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-..." 
+        crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -26,9 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-key-for-dev')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-if os.path.isfile('env.py'):
-    from env import DEBUG
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ["127.0.0.1", '.herokuapp.com']
 

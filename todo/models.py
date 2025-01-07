@@ -30,5 +30,4 @@ class PremiumMembership(models.Model):
     def __str__(self):
         status = 'Active' if self.is_active else 'Inactive'
         return (
-            f"Premium Membership for {self.user.username} - {status}"
-    )
+            f"Premium Membership for {self.user.username} - {status}")
